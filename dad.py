@@ -37,8 +37,8 @@ print "Album Name   : {}".format(album_title.encode("utf8"))
 
 # 检测相册是否有多页，是则获取页数
 if soup.find("div", "paginator"):
-#photo_total_number = re.search(r"\d+", soup.find("span", "count").text).group()
-#photo_total_page = soup.find("span", "thispage")["data-total-page"]
+    #photo_total_number = re.search(r"\d+", soup.find("span", "count").text).group()
+    #photo_total_page = soup.find("span", "thispage")["data-total-page"]
     photo_total_page = soup.find(
         lambda x: x.has_attr("data-total-page"))["data-total-page"].encode("utf8")
 else:
@@ -47,8 +47,8 @@ else:
 if not os.path.exists(album_title):
     os.makedirs(album_title)
 for i in xrange(0, int(photo_total_page)):
-    page_url = album + "/?start={0}".format(i*18)
-    print "Fetching page [{:<2}] ...".format(i+1)
+    page_url = album + "/?start={0}".format(i * 18)
+    print "Fetching page [{:<2}] ...".format(i + 1)
     res = urllib2.urlopen(page_url)
     soup = BeautifulSoup(res.read())
     photo_ids = [re.search(r"\d+", x["href"]).group()
@@ -58,14 +58,14 @@ for i in xrange(0, int(photo_total_page)):
         try:
             res = urllib2.urlopen(large_photo_url)
         except urllib2.HTTPError, e:
-        #如果出现404错误，则有可能是该照片没有大图版，尝试下载正常版。（主要是一些老相册）
+            # 如果出现404错误，则有可能是该照片没有大图版，尝试下载正常版。（主要是一些老相册）
             if e.code == 404:
                 print "Large photo for {0} is not found, try normal one".format(id)
-                res = urllib2.urlopen(large_photo_url.replace("large", "photo"))
+                res = urllib2.urlopen(
+                    large_photo_url.replace("large", "photo"))
             else:
                 print "HTTP Error {0} : {1}".format(e.code, e.reason)
                 continue
 
-        with open(os.path.join(".",album_title,"{0}.jpg".format(id)), "wb") as f:
+        with open(os.path.join(".", album_title, "{0}.jpg".format(id)), "wb") as f:
             f.write(res.read())
-
