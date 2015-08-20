@@ -20,6 +20,7 @@ large_photo_base = "http://img3.douban.com/view/photo/large/public/p"
 args = parser.parse_args()
 album = args.album
 
+path = "."
 #path = args.path if os.path.exists(args.path) else "."
 if args.path:
     if os.path.exists(args.path):
