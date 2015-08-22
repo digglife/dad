@@ -88,3 +88,4 @@ for i in xrange(0, int(photo_total_page)):
 
         with open(os.path.join(album_folder, "{0}.jpg".format(id)), "wb") as f:
             f.write(res.read())
+

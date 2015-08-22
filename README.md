@@ -6,7 +6,15 @@
 ## 用法
 
 ```bash
-python dad.py 相册连接
+usage: dad.py [-h] [-v] [-p PATH] album
+
+positional arguments:
+  album                 URL of Douban album
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -v, --verbose         verbose information
+  -p PATH, --path PATH  target path
 ```
 
 默认下载到当前目录下，以相册名作为文件夹名。
